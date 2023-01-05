@@ -6,9 +6,9 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
-    private SelenideElement statusSuccess = $x(".//b[text() = 'Positions']");
+    private SelenideElement positionsTitle = $x(".//b[text() = 'Positions']");
 
-    public void checkSuccessLogin(String correctPage){
-        statusSuccess.shouldHave(Condition.text(correctPage));
+    public void checkPositionTitleVisible(){
+        positionsTitle.should(Condition.visible);
     }
 }
