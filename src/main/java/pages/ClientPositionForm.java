@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.asserts.SoftAssert;
 
@@ -8,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ClientPositionForm extends CreatePositionBase{
     //SoftAssert softAssert = new SoftAssert();
 
-    private SelenideElement statusPositionType = $x("//div[text() = 'New Project Position']");
+    private SelenideElement statusPositionType = $x(".//div[text() = 'New Project Position']");
     private SelenideElement confirmationStatus = $x(".//input[@value='unconfirmed']");
     private SelenideElement fieldClient = $x(".//input[@id='client']");
     private SelenideElement clickClient = $x(".//div[@class ='rc-virtual-list-holder-inner']/descendant::div[@title='44 444']");
@@ -19,7 +20,12 @@ public class ClientPositionForm extends CreatePositionBase{
 
 
     public String getNameClientPositionType() {
-        return statusPositionType.getText();
+        return statusPositionType.getOwnText();
+    }
+
+    public ClientPositionForm checkModalClientPositionTitleExist() {
+        statusPositionType.should(Condition.exist);
+        return this;
     }
 
     public void clickCheckBoxConfirmation(){

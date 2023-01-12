@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -22,5 +23,12 @@ public class InternalPositionForm extends CreatePositionBase{
 
     public String getNameInternalPositionType() {
         return statusPositionType.getText();
+    }
+
+    public InternalPositionForm checkModalInternalPositionTitleExist() {
+        //statusPositionType.should(Condition.visible);
+        //System.out.println(statusPositionType.is(Condition.visible));
+        statusPositionType.shouldBe(Condition.visible);
+        return this;
     }
 }

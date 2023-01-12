@@ -1,14 +1,16 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
+import static java.util.stream.Collectors.toList;
 
 public class HomePage {
     private SelenideElement positionsTitle = $x(".//b[text() = 'Positions']");
@@ -34,7 +36,7 @@ public class HomePage {
     private SelenideElement benchCheckBox= $x(".//input[@value='bench']");
     private SelenideElement traineeCheckBox= $x(".//input[@value='trainee']");
     private SelenideElement buttonOk= $x(".//div[@class='ant-table-filter-dropdown']/descendant::div[@class='ant-table-filter-dropdown-btns']//span[text()= 'OK']");
-    private SelenideElement benchLabel = $x(".//tr[@class='ant-table-row ant-table-row-level-0']//span[@type]");
+    private ElementsCollection benchLabel = $$x(".//tr[@class='ant-table-row ant-table-row-level-0']//span[@type]");
 
 
     public void checkPositionTitleVisible(){
@@ -128,9 +130,21 @@ public class HomePage {
         buttonOk.click();
     }
 
-//    public List<Boolean> getAllPositions() {
-//        return
-//                benchLabel.$$().map(webElement ->
-//                        webElement.getText().contains("Bench")).collect(Collectors.toList());
-//    }
+    public List<Boolean> getAllPositions() throws Exception {
+//        if (benchLabel.isEmpty()) {
+//            throw new Exception();
+//        }
+//        $x(".//tbody[@class = 'ant-table-tbody']").shouldBe(Condition.visible);
+//        $x(".//tbody[@class = 'ant-table-tbody']/tr").shouldBe(Condition.visible);
+
+        //ToDo: Realise without the 142 line.
+
+        $x(".//tr[@class='ant-table-row ant-table-row-level-0']//span[@type]").shouldHave(Condition.text("Bench"));
+        return
+                benchLabel.stream().map(webElement ->{
+                    webElement.shouldBe(Condition.visible);
+                    return webElement.getOwnText().contains("Bench");
+                        }
+                ).toList();
+    }
 }

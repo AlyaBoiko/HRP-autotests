@@ -20,7 +20,7 @@ public class PositionsFiltering {
     }
 
     @Test
-    public void FilteringByType(){
+    public void FilteringByType() throws Exception{
         open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
@@ -31,8 +31,8 @@ public class PositionsFiltering {
         homePage.clickOkButton();
         //Assert.assertTrue(homePage.getAllPositions().contains("Bench"), "not success");
 
-//        homePage.getAllPositions().forEach(label -> softAssert.assertTrue(label));
-//        softAssert.assertAll();
+        homePage.getAllPositions().forEach(label -> softAssert.assertTrue(label));
+        softAssert.assertAll();
     }
 
 }

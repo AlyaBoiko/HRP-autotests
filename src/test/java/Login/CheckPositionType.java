@@ -1,8 +1,11 @@
 package Login;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 
@@ -13,6 +16,8 @@ import static com.codeborne.selenide.Selenide.open;
 public class CheckPositionType {
     private final LoginPage loginPage = new LoginPage();
     private final HomePage homePage = new HomePage();
+    private final ClientPositionForm clientPositionForm = new ClientPositionForm();
+    private final InternalPositionForm internalPositionForm = new InternalPositionForm();
 
 
     @BeforeClass
@@ -20,37 +25,45 @@ public class CheckPositionType {
         Configuration.timeout = 50000;
     }
 
+    @BeforeMethod
+    private void beforeEach(){
+        //open(System.getenv("baseurl"));
+        open("https://stage.hrportal.akvelon.net/");
+    }
+    @AfterMethod
+    private void afterEach(){
+        Selenide.closeWindow();
+    }
+
+
     @Test
     public void OpenClientProjectPositionForm() {
-        open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
                 .clickSubmit();
         homePage.clickCreateButton();
         homePage.clickClientProjectPosition();
         //Assert.assertEquals(clientPositionForm.getNameClientPositionType().contentEquals("New Project Position"),"New Project Position");
-        //Assert.assertTrue(clientPositionForm.getNameClientPositionType().contains("New Project Position"),"not success");
-        Assert.assertTrue(true);
+        clientPositionForm.checkModalClientPositionTitleExist();
+        //Assert.assertTrue(true);
 
     }
 
     @Test
     public void OpenInternalProjectPositionForm() {
-        open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
                 .clickSubmit();
         homePage.clickCreateButton();
         homePage.clickInternalProjectPosition();
         //Assert.assertEquals(clientPositionForm.getNameClientPositionType().contentEquals("New Project Position"),"New Project Position");
-        //Assert.assertTrue(clientPositionForm.getNameClientPositionType().contains("New Project Position"),"not success");
-        Assert.assertTrue(true);
+        internalPositionForm.checkModalInternalPositionTitleExist();
+        //Assert.assertTrue(true);
 
     }
 
     @Test
     public void OpenBenchPositionForm() {
-        open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
                 .clickSubmit();
@@ -63,7 +76,6 @@ public class CheckPositionType {
     }
     @Test
     public void OpenPreOfferPositionForm() {
-        open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
                 .clickSubmit();
@@ -76,15 +88,14 @@ public class CheckPositionType {
     }
     @Test
     public void OpenTraineePositionForm() {
-        open("https://stage.hrportal.akvelon.net/");
         loginPage.fillLoginField("alevtina.boiko@akvelon.com")
                 .fillPasswordField("C!j2Q64~V6!!")
                 .clickSubmit();
         homePage.clickCreateButton();
         homePage.clickTraineePosition();
         //Assert.assertEquals(clientPositionForm.getNameClientPositionType().contentEquals("New Project Position"),"New Project Position");
-        //Assert.assertTrue(clientPositionForm.getNameClientPositionType().contains("New Project Position"),"not success");
-        Assert.assertTrue(true);
+        Assert.assertTrue(clientPositionForm.getNameClientPositionType().contains("New Project Position"),"not success");
+        //Assert.assertTrue(true);
 
     }
 
