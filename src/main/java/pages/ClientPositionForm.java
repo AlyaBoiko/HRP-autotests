@@ -2,12 +2,18 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.open;
 
 public class ClientPositionForm extends CreatePositionBase{
     //SoftAssert softAssert = new SoftAssert();
+    private LoginPage loginPage = new LoginPage();
+    private HomePage homePage = new HomePage();
+    CreatePositionBase createPositionBase = new CreatePositionBase();
+    private String ClientPositionName = createPositionBase.GeneratingPositionName();
 
     private SelenideElement statusPositionType = $x(".//div[text() = 'New Project Position']");
     private SelenideElement confirmationStatus = $x(".//input[@value='unconfirmed']");
@@ -67,6 +73,54 @@ public class ClientPositionForm extends CreatePositionBase{
     public void selectBillableStatus()
     {
         selectBillableStatus.click();
+    }
+
+    public void CreateClientProjectPosition(){
+
+        open("https://stage.hrportal.akvelon.net/");
+        loginPage.fillLoginField("alevtina.boiko@akvelon.com")
+                .fillPasswordField("C!j2Q64~V6!!")
+                .clickSubmit();
+        homePage.filteringByName(ClientPositionName);
+        Assert.assertTrue(homePage.getNoData().contains("No Data"), "not success");
+        homePage.clickCreateButton();
+        ClientPositionForm clientPositionForm = homePage.clickClientProjectPosition();
+        clientPositionForm.clickCheckBoxConfirmation();
+        clientPositionForm.clickPriority();
+        clientPositionForm.clickUrgentPriority();
+        clientPositionForm.enterClient("44 444");
+        clientPositionForm.clickClient();
+        clientPositionForm.clickProject();
+        clientPositionForm.findProject();
+        clientPositionForm.clickDateOfCreation();
+        clientPositionForm.selectDateOfCreation();
+        clientPositionForm.enterLocation("Armenia");
+        clientPositionForm.clickLocation();
+        clientPositionForm.clickRemoteType();
+        clientPositionForm.selectRemoteType();
+        clientPositionForm.addComment("Its a good idea");
+        clientPositionForm.enterPositionName(ClientPositionName);
+        clientPositionForm.clickRole();
+        clientPositionForm.selectRole();
+        clientPositionForm.clickEnglish();
+        clientPositionForm.selectEnglish();
+        clientPositionForm.clickButtonSkill();
+        clientPositionForm.clickSkill();
+        clientPositionForm.selectSkill();
+        clientPositionForm.clickGrade();
+        clientPositionForm.selectGrade();
+        clientPositionForm.clickTabRequests();
+        clientPositionForm.clickAddRequest();
+        clientPositionForm.clickBillableStatus();
+        clientPositionForm.selectBillableStatus();
+        clientPositionForm.clickJobType();
+        clientPositionForm.selectJobType();
+        clientPositionForm.clickDeadline();
+        clientPositionForm.selectDeadline();
+        clientPositionForm.addRequiredPeople("3");
+        clientPositionForm.buttonCreatePosition();
+        Assert.assertTrue(homePage.getClientPositionInGrid().contains(ClientPositionName), "not success");
+
     }
 
 }

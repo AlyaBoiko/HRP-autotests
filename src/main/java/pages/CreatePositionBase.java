@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import java.util.Random;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CreatePositionBase {
@@ -144,6 +146,22 @@ public class CreatePositionBase {
     public void buttonCreatePosition()
     {
         buttonCreatePosition.click();
+    }
+
+    public String GeneratingPositionName() {
+
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String PositionName = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        //System.out.println(generatedString);
+        return PositionName;
     }
 
 }

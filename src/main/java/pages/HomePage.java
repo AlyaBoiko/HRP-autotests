@@ -7,36 +7,38 @@ import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.*;
 import static java.util.stream.Collectors.toList;
 
 public class HomePage {
-    private SelenideElement positionsTitle = $x(".//b[text() = 'Positions']");
-    private SelenideElement tabActive = $x(".//a[text()='Active']");
-    private SelenideElement tabMine = $x(".//a[text()='Mine']");
-    private SelenideElement tabHistory = $x(".//a[text()='History']");
-    private SelenideElement filteringByName = $x(".//input[@placeholder='Enter position']");
-    private SelenideElement groupByProject = $x(".//input[@type='checkbox']");
-    private SelenideElement statusPosition = $x(".//span[text() = 'SDET Middle']");
-    private SelenideElement buttonAddPosition = $x(".//span[text() = '+ Add position']");
-    private SelenideElement projectPosition = $x(".//span[text() = 'Project position']");
-    private SelenideElement internalProjectPosition = $x(".//span[text() = 'Internal project position']");
-    private SelenideElement benchPosition = $x(".//span[text() = 'Bench position']");
-    private SelenideElement preOfferPosition = $x(".//span[text() = 'Pre-offer position']");
-    private SelenideElement traineePosition = $x(".//span[text() = 'Trainee position']");
-    private SelenideElement findNoData = $x(".//div[text() = 'No Data']");
-    private SelenideElement internalPositionInGrid = $x(".//span[text() = 'InternalPosition33']");
-    private SelenideElement clientPositionInGrid = $x(".//span[text() = 'Position33']");
-    private SelenideElement benchPositionInGrid = $x(".//span[text() = 'Bench33']");
-    private SelenideElement preOfferPositionInGrid = $x(".//span[text() = 'Pre-offer33']");
-    private SelenideElement traineePositionInGrid = $x(".//span[text() = 'Trainee33']");
-    private SelenideElement filteringByType = $x(".//div[@class='ant-table-filter-column']/descendant::span[text()='Position name']/following-sibling::span");
-    private SelenideElement benchCheckBox= $x(".//input[@value='bench']");
-    private SelenideElement traineeCheckBox= $x(".//input[@value='trainee']");
-    private SelenideElement buttonOk= $x(".//div[@class='ant-table-filter-dropdown']/descendant::div[@class='ant-table-filter-dropdown-btns']//span[text()= 'OK']");
-    private ElementsCollection benchLabel = $$x(".//tr[@class='ant-table-row ant-table-row-level-0']//span[@type]");
+
+    SelenideElement positionsTitle = $x(".//b[text() = 'Positions']");
+    SelenideElement tabActive = $x(".//a[text()='Active']");
+    SelenideElement tabMine = $x(".//a[text()='Mine']");
+    SelenideElement tabHistory = $x(".//a[text()='History']");
+    SelenideElement filteringByName = $x(".//input[@placeholder='Enter position']");
+    SelenideElement groupByProject = $x(".//input[@type='checkbox']");
+    SelenideElement statusPosition = $x(".//span[text() = 'SDET Middle']");
+    SelenideElement buttonAddPosition = $x(".//span[text() = '+ Add position']");
+    SelenideElement projectPosition = $x(".//span[text() = 'Project position']");
+    SelenideElement internalProjectPosition = $x(".//span[text() = 'Internal project position']");
+    SelenideElement benchPosition = $x(".//span[text() = 'Bench position']");
+    SelenideElement preOfferPosition = $x(".//span[text() = 'Pre-offer position']");
+    SelenideElement traineePosition = $x(".//span[text() = 'Trainee position']");
+    SelenideElement findNoData = $x(".//div[text() = 'No Data']");
+    SelenideElement internalPositionInGrid = $x("(.//span[@class = 'ant-typography sc-gKPRtg OjNDH'])[1]");
+    SelenideElement clientPositionInGrid = $x("(.//span[@class = 'ant-typography sc-gKPRtg OjNDH'])[1]");
+    SelenideElement benchPositionInGrid = $x("(.//span[@class = 'ant-typography sc-gKPRtg OjNDH'])[1]");
+    SelenideElement preOfferPositionInGrid = $x("(.//span[@class = 'ant-typography sc-gKPRtg OjNDH'])[1]");
+    SelenideElement traineePositionInGrid = $x("(.//span[@class = 'ant-typography sc-gKPRtg OjNDH'])[1]");
+    SelenideElement filteringByType = $x(".//div[@class='ant-table-filter-column']/descendant::span[text()='Position name']/following-sibling::span");
+    SelenideElement benchCheckBox= $x(".//input[@value='bench']");
+    SelenideElement traineeCheckBox= $x(".//input[@value='trainee']");
+    SelenideElement buttonOk= $x(".//div[@class='ant-table-filter-dropdown']/descendant::div[@class='ant-table-filter-dropdown-btns']//span[text()= 'OK']");
+    ElementsCollection benchLabel = $$x(".//tr[@class='ant-table-row ant-table-row-level-0']//span[@type]");
 
 
     public void checkPositionTitleVisible(){
